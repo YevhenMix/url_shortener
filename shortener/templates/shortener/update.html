@@ -14,11 +14,12 @@
                 {{form.designed_link}}
             {% endif %}
             <button class="btn btn-outline-primary my-2" type="submit">Update Link</button>
+            <button type="button" class="btn btn-outline-danger my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Delete Link
+            </button>
         </form>
 
-        <button type="button" class="btn btn-outline-danger my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Delete Link
-        </button>
+
         <div class="modal fade modal-dialog modal-dialog-centered" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">

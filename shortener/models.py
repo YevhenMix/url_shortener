@@ -14,3 +14,4 @@ class Link(models.Model):
     class Meta:
         verbose_name = 'Link'
         verbose_name_plural = 'Links'
+        ordering = ['-created_date']

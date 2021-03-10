@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from shortener.views import redirect_full_link, main_view
@@ -22,4 +24,4 @@ urlpatterns = [
     path('', main_view, name='main'),
     path('<str:short_link>/', redirect_full_link, name='redirect'),
     path('links/', include('shortener.urls', 'shortener')),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

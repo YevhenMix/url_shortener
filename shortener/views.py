@@ -1,3 +1,5 @@
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
@@ -39,6 +41,7 @@ def link_delete_view(request, pk):
     if request.method == 'POST':
         link = Link.objects.get(id=pk)
         link.delete()
+        messages.success(request, 'Link was deleted')
     return redirect('main')
 
 
@@ -73,9 +76,10 @@ class StandardLinksListView(ListView):
         return context
 
 
-class LinkUpdateView(UpdateView):
+class LinkUpdateView(SuccessMessageMixin, UpdateView):
     model = Link
     context_object_name = 'link'
     form_class = LinkModelForm
     template_name = 'shortener/update.html'
     success_url = reverse_lazy('main')
+    success_message = 'Link was updated'
