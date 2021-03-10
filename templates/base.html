@@ -1,5 +1,7 @@
 <!doctype html>
 {% load static %}
+{% url 'shortener:designed_links' as designed_links %}
+{% url 'shortener:standard_links' as standard_links %}
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -23,12 +25,9 @@
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Link List
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <ul class="dropdown-menu active" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'shortener:designed_links' %}">Designed Links</a></li>
                                 <li><a class="dropdown-item" href="{% url 'shortener:standard_links' %}">Standard Links</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
                     </ul>

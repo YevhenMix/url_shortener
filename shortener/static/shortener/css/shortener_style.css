@@ -11,5 +11,9 @@
 }
 
 .over {
-  z-index:99999999;
+    z-index:100;
 }
+
+a {
+    text-decoration: none;
+   }

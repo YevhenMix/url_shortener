@@ -21,14 +21,6 @@
                     </div>
                 </div>
             </form>
-            {% if short_link %}
-            <form action="" method="post"> {% csrf_token %}
-                <div class="input-group mb-3 my-3">
-                    <input type="text" class="form-control" value="{{short_link}}" aria-label="short-url" aria-describedby="button-addon3" readonly>
-                    <button class="btn btn-outline-primary" type="submit" id="button-addon3">Copied!</button>
-                </div>
-            </form>
-            {% endif %}
         </div>
     </div>
 </div>

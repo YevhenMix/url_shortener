@@ -3,8 +3,8 @@ from django.db import models
 
 class Link(models.Model):
     full_link = models.URLField('Full_link')
-    short_link = models.CharField('Short_link', max_length=20, null=True, blank=True)
-    designed_link = models.CharField('Designed Link', max_length=20, null=True, blank=True, unique=True)
+    short_link = models.CharField('Short_link', max_length=20, default='', null=False, blank=True)
+    designed_link = models.CharField('Designed Link', max_length=20, default='', null=False, blank=True)
     count_use = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True)
 

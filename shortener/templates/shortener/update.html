@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} Designed Links {% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 mx-auto my-4 text-center">
+        <form action="" method="post" id="shortLinkForm" data-url="{% url 'main' %}"> {% csrf_token %}
+            {{form.full_link}}
+            {% if form.short_link.value %}
+                {{form.short_link}}
+            {% else %}
+                {{form.designed_link}}
+            {% endif %}
+            <button class="btn btn-outline-primary my-2" type="submit">Update Link</button>
+        </form>
+
+        <button type="button" class="btn btn-outline-danger my-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Delete Link
+        </button>
+        <div class="modal fade modal-dialog modal-dialog-centered" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Delete Window</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="my-2">Delete this Link?</p>
+                        <br>
+                        <form action="{% url 'shortener:delete' pk=link.id %}" method="post"> {% csrf_token %}
+                            <input class="btn btn-danger mx-2" type="submit" value="Yes">
+                            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">No</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
