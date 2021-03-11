@@ -1,3 +1,24 @@
+function ajaxPagination() {
+    $('#paginationId a.page-link').each((index, el) => {
+        $(el).click((e) => {
+            e.preventDefault()
+            let page_url = $(el).attr('href')
+            console.log(page_url)
+            $.ajax({
+                url: page_url,
+                type: 'GET',
+                success: (data) => {
+                    $("#pagination-link").empty()
+                    $("#pagination-link").append($(data).find("#pagination-link").html())
+
+                    $("#paginationId").empty()
+                    $("#paginationId").append($(data).find("#paginationId").html())
+                }
+            })
+        })
+    })
+}
+
 $(document).ready(function(){
     $("#button-addon2").click(function(){
         var serializedData = $("#shortLinkForm").serialize();
@@ -26,5 +47,10 @@ $(document).ready(function(){
         console.log('Done')
 
     });
+
+    ajaxPagination()
 });
 
+$(document).ajaxStop(function() {
+    ajaxPagination()
+})

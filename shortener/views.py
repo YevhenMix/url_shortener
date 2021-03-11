@@ -30,7 +30,12 @@ def more_shortener(request):
     links = Link.objects.all().order_by('-count_use')
     paginator = Paginator(links, 5)
     page = request.GET.get('page')
-    links = paginator.get_page(page)
+    try:
+        links = paginator.page(page)
+    except PageNotAnInteger:
+        links = paginator.page(1)
+    except EmptyPage:
+        links = paginator.page(paginator.num_pages)
     if request.method == 'POST':
         form = LinkForm(request.POST)
         if form.is_valid():
