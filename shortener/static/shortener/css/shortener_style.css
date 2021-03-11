@@ -16,4 +16,35 @@
 
 a {
     text-decoration: none;
-   }
+}
+
+div.center {
+    height: 10em;
+    display: flex;
+    align-items: center;
+}
+
+div.center h1 h2 {
+    margin: 0
+}
+
+.text-header {
+    font-family: "ProximaNova Extra Bold", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 60px;
+    font-weight: 900;
+    line-height: 80px;
+}
+
+.under-header {
+    font-weight: 300;
+}
+
+.padding {
+    padding-left: 15%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.footer {
+	flex: 0 0 auto;
+}

@@ -5,7 +5,7 @@ from .models import Link
 class LinkForm(forms.Form):
     full_link = forms.URLField(
         widget=forms.URLInput(attrs={
-            'class': 'form-control',
+            'class': 'form-control form-control-lg',
             'placeholder': 'Input your link for shortener',
             'aria-label': "Recipient's",
             'aria-describedby': 'button-addon2'

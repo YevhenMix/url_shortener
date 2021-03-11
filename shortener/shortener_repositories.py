@@ -44,5 +44,15 @@ def create_short_link_with_save_in_db(request, full_link, designed_link=None) ->
     return full_short_link
 
 
+def create_short_link_with_save(request, form):
+    full_link = form.data.get('full_link')
+    designed_link = form.data.get('designed_link')
+    if designed_link:
+        full_short_link = create_short_link_with_save_in_db(request, full_link, designed_link)
+    else:
+        full_short_link = create_short_link_with_save_in_db(request, full_link)
+    return full_short_link
+
+
 def copied_text(url):
     clipboard.copy(url)

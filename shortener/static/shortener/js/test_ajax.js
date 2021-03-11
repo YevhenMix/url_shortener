@@ -12,5 +12,19 @@ $(document).ready(function(){
         console.log('Done')
 
     });
+
+    $("#button-replace").click(function(){
+        var serializedData = $("#shortForm").serialize();
+        $.ajax({
+            url: $("#shortForm").data('url'),
+            data: serializedData,
+            type: 'post',
+            success: function(response) {
+                $("#shortForm").html('<div class="row g-2"><div class="col-md-8"><input class="form-control form-control-lg" type="text" value="' + response.short_link + '" aria-label=".form-control-lg example" readonly></div><div class="col-md"><button type="button" class="btn btn-primary btn-lg mx-4" id="button-replace" style="width: 100%">Copied</button></div></div>')
+            }
+        })
+        console.log('Done')
+
+    });
 });
 

@@ -2,6 +2,7 @@
 {% load static %}
 {% url 'shortener:designed_links' as designed_links %}
 {% url 'shortener:standard_links' as standard_links %}
+{% url 'shortener:shortener' as shortener %}
 <html lang="en">
     <head>
         <meta charset="utf-8">
@@ -13,7 +14,8 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light over">
+    <div class="container">
+        <nav class="navbar navbar-expand-lg navbar-light over">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'main' %}">Shortener</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,6 +23,9 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link {% if request.path == shortener %} active {% endif %}" aria-current="page" href="{% url 'shortener:shortener' %}">More Shortener</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Link List
@@ -34,6 +39,7 @@
                 </div>
             </div>
         </nav>
+    </div>
 
         {% if messages %}
         <div class="container my-2">
@@ -65,6 +71,12 @@
 
         <div class="container">
             {% block content %} {% endblock %}
+        </div>
+
+        {% block content_without_container %} {% endblock %}
+
+        <div class="container">
+            {% block content_with_container %} {% endblock %}
         </div>
 
         <footer class="footer fixed-bottom mt-auto py-4 bg-light">

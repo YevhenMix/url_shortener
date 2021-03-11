@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.db.models import Q
@@ -8,19 +9,14 @@ from django.views.generic import ListView, UpdateView
 
 from .models import Link
 from .forms import LinkForm, LinkModelForm
-from .shortener_repositories import create_short_link_with_save_in_db, copied_text
+from .shortener_repositories import create_short_link_with_save, copied_text
 
 
 def main_view(request):
     if request.method == 'POST':
         form = LinkForm(request.POST)
         if form.is_valid():
-            full_link = form.data.get('full_link')
-            designed_link = form.data.get('designed_link')
-            if designed_link:
-                full_short_link = create_short_link_with_save_in_db(request, full_link,  designed_link)
-            else:
-                full_short_link = create_short_link_with_save_in_db(request, full_link)
+            full_short_link = create_short_link_with_save(request, form)
             copied_text(full_short_link)
             context = {'short_link': full_short_link}
             return JsonResponse(context, status=200)
@@ -28,6 +24,23 @@ def main_view(request):
         form = LinkForm()
         context = {'form': form}
     return render(request, 'shortener/main.html', context)
+
+
+def more_shortener(request):
+    links = Link.objects.all().order_by('-count_use')
+    paginator = Paginator(links, 5)
+    page = request.GET.get('page')
+    links = paginator.get_page(page)
+    if request.method == 'POST':
+        form = LinkForm(request.POST)
+        if form.is_valid():
+            full_short_link = create_short_link_with_save(request, form)
+            copied_text(full_short_link)
+            context = {'short_link': full_short_link}
+            return JsonResponse(context, status=200)
+    form = LinkForm()
+    context = {'form': form, 'links': links}
+    return render(request, 'shortener/shortener.html', context)
 
 
 def redirect_full_link(request, short_link):

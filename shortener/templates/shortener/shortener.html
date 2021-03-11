@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %} Shortener {% endblock %}
+
+{% block content %}
+
+    <div class="row" style="padding-bottom: 100px">
+        <div class="col-md-7 text-center my-4 center">
+            <div style="margin-top: 200px">
+                <h1 class="text-header">Short Link, Big Result</h1>
+                <h2 class="text-muted under-header">A URL Shortener make custom link <br>for your use.</h2>
+            </div>
+        </div>
+
+        <div class="col-md-5 text-center">
+            <div>
+                <img src="/static/shortener/img/icon_image.jpg" width="500px" height="500px" alt="">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block content_without_container %}
+
+        <div class="col-md-12" style="background-color: #0b1736;">
+            <div class="container">
+                <div class="row">
+                    <form class="padding" method="post" id="shortForm" data-yrl="{% url 'shortener:shortener' %}"> {% csrf_token %}
+                        <div class="row g-2">
+                            <div class="col-md-8">
+                                {{ form.full_link }}
+                            </div>
+                            <div class="col-md text-end">
+                                <button type="button" class="btn btn-primary btn-lg" id="button-replace" style="width: 100%">Cut Link</button>
+                            </div>
+                            <div class="col-md">
+                                <a class="btn btn-primary btn-lg" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="width: 100%">
+                                    Designed Link
+                                </a>
+                            </div>
+                        </div>
+                        <div class="collapse my-2" id="collapseExample">
+                            <div class="card card-body">
+                                {{form.designed_link}}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block content_with_container %}
+    <div class="row" style="padding-top: 80px;">
+        <div class="col-md-8 text-center mx-auto">
+            <h1 class="text-header">Our Short Link</h1>
+        </div>
+    </div>
+    <div class="row" style="padding-bottom: 100px">
+        <div class="col-md-8 mx-auto">
+            <table class="table table-striped table-bordered my-2">
+                <thead>
+                <tr class="text-center">
+                    <th scope="col">Standard Link</th>
+                    <th scope="col">Count of use</th>
+                    <th scope="col"> Edit </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for link in links %}
+                <tr class="text-center">
+                    <td>
+                        {% if link.short_link %}
+                            <a href="">{{ link.short_link }}</a>
+                        {% else %}
+                            <a href="">{{ link.designed_link }}</a>
+                        {% endif %}
+                    </td>
+                    <td>{{link.count_use}}</td>
+                    <td><a href="{% url 'shortener:update' pk=link.id %}" class="btn btn-outline-primary" role="button">Edit Link</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <nav aria-label="...">
+                <ul class="pagination">
+                    {% if links.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page=1">First</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ links.previous_page_number }}">&laquo;</a>
+                        </li>
+                    {% endif %}
+
+                    {% for page in links.paginator.page_range %}
+                        <li class="page-item {% if page == links.number %} active {% endif %}">
+                            <a class="page-link" href="?page={{page}}">{{ page }}</a>
+                        </li>
+                    {% endfor %}
+
+                    {% if links.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ links.next_page_number }}">&raquo;</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ links.paginator.num_pages }}">Last</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+{% endblock %}
+
