@@ -1,8 +1,6 @@
 import string
 from random import choices
 
-import clipboard
-
 from .models import Link
 
 
@@ -52,7 +50,3 @@ def create_short_link_with_save(request, form):
     else:
         full_short_link = create_short_link_with_save_in_db(request, full_link)
     return full_short_link
-
-
-def copied_text(url):
-    clipboard.copy(url)

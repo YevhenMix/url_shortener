@@ -22,7 +22,7 @@
     </div>
 
     <div class="col-md-12" style="background-color: #0b1736;">
-        <div class="container">
+        <div class="container" id="shortFormForRedirect">
             <div class="row">
                 <form class="padding" method="post" id="shortForm" data-yrl="{% url 'shortener:shortener' %}"> {% csrf_token %}
                     <div class="row g-2">
@@ -59,7 +59,7 @@
                 <table class="table table-striped table-bordered my-2">
                     <thead>
                     <tr class="text-center">
-                        <th scope="col">Standard Link</th>
+                        <th scope="col">Shortened Link</th>
                         <th scope="col">Count of use</th>
                         <th scope="col"> Edit </th>
                     </tr>
@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <div class="row" style="padding-bottom: 250px">
+    <div class="row" style="padding-bottom: 100px">
         <div class="col-md-12" style="background-color: #0b1736; padding-bottom: 20px; padding-top: 20px">
             <div class="container">
                 <div class="row">
@@ -94,12 +94,41 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-3 mx-auto text-center">
-                        <button type="button" class="btn btn-primary btn-lg" style="width: 100%">Join Us</button>
+                    <div class="col-md-3">
+                        <a type="button" class="btn btn-primary btn-lg" style="width: 100%" href="{% url 'shortener:designed_links' %}" >Custom Link</a>
+                    </div>
+                    <div class="col-md-3 mx-auto">
+                        <a type="button" class="btn btn-primary btn-lg" style="width: 100%" href="#NavBar" >Join us</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a type="button" class="btn btn-primary btn-lg" style="width: 100%" href="{% url 'shortener:standard_links' %}" >Standard Link</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="container" style="padding-bottom: 250px">
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <img loading="lazy" class="alignnone size-full wp-image-5316" src="https://docrdsfx76ssb.cloudfront.net/static/1615406718/pages/wp-content/uploads/2019/08/Homepage-Branded-Links-Illustration-1.png" alt="branded links" style="width: 65%" height="200">
+                <h1>Create Your Short Link</h1>
+                <h4 class="text-muted under-header">Create shortened links for your <br> resources for easier storage.</h4>
+            </div>
+            <div class="col-md-6 text-center">
+                <img loading="lazy" class="alignnone size-full wp-image-5314" src="https://docrdsfx76ssb.cloudfront.net/static/1615406718/pages/wp-content/uploads/2019/08/Homepage-Branded-Links-Illustration-3.png" alt="auto branding" style="width: 60%" height="200">
+                <h1>Create Your Custom Link</h1>
+                <h4 class="text-muted under-header">Create your own custom shortened <br> links for better orientation between them.</h4>
+            </div>
+        </div>
+
+        <div class="row text-center" style="padding-top: 50px">
+            <div class="col-md-12">
+                <a class="btn btn-outline-primary btn-lg" id="link" href="#shortFormForRedirect" role="button">Create your own link</a>
+            </div>
+        </div>
+    </div>
+
+
 
 {% endblock %}

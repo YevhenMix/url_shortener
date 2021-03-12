@@ -9,7 +9,7 @@ from django.views.generic import ListView, UpdateView
 
 from .models import Link
 from .forms import LinkForm, LinkModelForm
-from .shortener_repositories import create_short_link_with_save, copied_text
+from .shortener_repositories import create_short_link_with_save
 
 
 def main_view(request):
@@ -17,7 +17,6 @@ def main_view(request):
         form = LinkForm(request.POST)
         if form.is_valid():
             full_short_link = create_short_link_with_save(request, form)
-            copied_text(full_short_link)
             context = {'short_link': full_short_link}
             return JsonResponse(context, status=200)
     else:
@@ -40,7 +39,6 @@ def more_shortener(request):
         form = LinkForm(request.POST)
         if form.is_valid():
             full_short_link = create_short_link_with_save(request, form)
-            copied_text(full_short_link)
             context = {'short_link': full_short_link}
             return JsonResponse(context, status=200)
     form = LinkForm()
@@ -65,32 +63,36 @@ def link_delete_view(request, pk):
 
 class DesignedLinksListView(ListView):
     model = Link
+    context_object_name = 'links'
     template_name = 'shortener/designed_links.html'
+    paginate_by = 20
 
     def get_queryset(self):
-        data = Link.objects.filter(short_link='')
+        data = super().get_queryset().filter(short_link='').order_by('-count_use')
         # data = Link.objects.raw('SELECT * FROM shortener_link WHERE designed_link is not NULL')
         return data
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        data = self.get_queryset()
+        context = super().get_context_data()
         domain_name = self.request.headers['Host']
-        context = {'links': data, 'domain_name': domain_name}
+        context['domain_name'] = domain_name
         return context
 
 
 class StandardLinksListView(ListView):
     model = Link
+    context_object_name = 'links'
     template_name = 'shortener/standard_links.html'
+    paginate_by = 20
 
     def get_queryset(self):
-        data = Link.objects.filter(designed_link='')
+        data = super().get_queryset().filter(designed_link='').order_by('-count_use')
         return data
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        data = self.get_queryset()
+        context = super().get_context_data()
         domain_name = self.request.headers['Host']
-        context = {'links': data, 'domain_name': domain_name}
+        context['domain_name'] = domain_name
         return context
 
 

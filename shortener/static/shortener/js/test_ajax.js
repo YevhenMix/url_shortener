@@ -22,10 +22,10 @@ function ajaxPagination() {
 function CopyClipboard() {
   /* Get the text field */
   var copyText = document.getElementById("myInput");
-  console.log(copyText)
 
   /* Select the text field */
   copyText.select();
+  copyText.setSelectionRange(0, 99999);
 
   /* Copy the text inside the text field */
   document.execCommand("copy");
@@ -39,10 +39,15 @@ $(document).ready(function(){
             data: serializedData,
             type: 'post',
             success: function(response) {
-                $("#shortLink").append('<form method="post"><div class="input-group mb-3 my-3"><input type="text" class="form-control" value="' + response.short_link + '" aria-label="short-url" aria-describedby="button-addon3" readOnly><button class="btn btn-outline-primary" type="submit" id="button-addon3">Copied!</button></div></form>')
+                $("#shortLink").append('' +
+                    '<form method="post">' +
+                    '   <div class="input-group mb-3 my-3">' +
+                    '       <input type="text" class="form-control" value="' + response.short_link + '" aria-label="short-url" aria-describedby="button-addon3" readOnly>' +
+                    '       <button class="btn btn-outline-primary" type="submit" id="button-addon3">Copied!</button>' +
+                    '   </div>' +
+                    '</form>')
             }
         })
-        console.log('Done')
 
     });
 
@@ -53,14 +58,23 @@ $(document).ready(function(){
             data: serializedData,
             type: 'post',
             success: function(response) {
-                $("#shortForm").html('<div class="row g-2"><div class="col-md-8"><input class="form-control form-control-lg" type="text" value="' + response.short_link + '" aria-label=".form-control-lg example" readonly></div><div class="col-md"><button type="button" onclick="CopyClipboard()" class="btn btn-primary btn-lg mx-4" id="myInput" style="width: 100%">Copied</button></div></div>')
+                $("#shortForm").html('' +
+                    '<div class="row g-2">' +
+                    '   <div class="col-md-8">' +
+                    '       <input class="form-control form-control-lg" id="myInput" type="text" value="' + response.short_link + '" aria-label=".form-control-lg example" readonly>' +
+                    '   </div>' +
+                    '   <div class="col-md">' +
+                    '       <button type="button" onclick="CopyClipboard()" class="btn btn-primary btn-lg mx-4" style="width: 100%">Copied</button>' +
+                    '   </div>' +
+                    '</div>')
+                CopyClipboard()
             }
         })
-        console.log('Done')
 
     });
 
-    ajaxPagination()
+    ajaxPagination();
+
 });
 
 $(document).ajaxStop(function() {
