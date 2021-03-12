@@ -4,25 +4,27 @@
 
 {% block content %}
 
-<div class="row">
-    <div class="parent">
-        <div class="col-md-4 mx-auto my-4 text-end" id="shortLink">
-            <form action="" method="post" id="shortLinkForm" data-url="{% url 'main' %}"> {% csrf_token %}
-                <div class="input-group mb-3">
-                    {{form.full_link}}
-                    <button class="btn btn-outline-primary" type="button" id="button-addon2">Cut Link</button>
+    <div class="container">
+        <div class="row">
+            <div class="parent">
+                <div class="col-md-4 mx-auto my-4 text-end" id="shortLink">
+                    <form action="" method="post" id="shortLinkForm" data-url="{% url 'main' %}"> {% csrf_token %}
+                        <div class="input-group mb-3">
+                            {{form.full_link}}
+                            <button class="btn btn-outline-primary" type="button" id="button-addon2">Cut Link</button>
+                        </div>
+                        <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Designed Link
+                        </a>
+                        <div class="collapse my-2" id="collapseExample">
+                            <div class="card card-body">
+                                {{form.designed_link}}
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Designed Link
-                </a>
-                <div class="collapse my-2" id="collapseExample">
-                    <div class="card card-body">
-                        {{form.designed_link}}
-                    </div>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock %}

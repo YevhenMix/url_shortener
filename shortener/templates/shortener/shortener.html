@@ -4,24 +4,23 @@
 
 {% block content %}
 
-    <div class="row" style="padding-bottom: 100px">
-        <div class="col-md-7 text-center my-4 center">
-            <div style="margin-top: 200px">
-                <h1 class="text-header">Short Link, Big Result</h1>
-                <h2 class="text-muted under-header">A URL Shortener make custom link <br>for your use.</h2>
+    <div class="container">
+        <div class="row" style="padding-bottom: 100px">
+            <div class="col-md-7 text-center my-4 center">
+                <div style="margin-top: 200px">
+                    <h1 class="text-header">Short Link, Big Result</h1>
+                    <h2 class="text-muted under-header">A URL Shortener make custom link <br>for your use.</h2>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-5 text-center">
-            <div>
-                <img src="/static/shortener/img/icon_image.jpg" width="500px" height="500px" alt="">
+            <div class="col-md-5 text-center">
+                <div>
+                    <img src="/static/shortener/img/icon_image.jpg" width="500px" height="500px" alt="">
+                </div>
             </div>
         </div>
     </div>
 
-{% endblock %}
-
-{% block content_without_container %}
     <div class="col-md-12" style="background-color: #0b1736;">
         <div class="container">
             <div class="row">
@@ -49,48 +48,43 @@
         </div>
     </div>
 
-{% endblock %}
-
-
-{% block content_with_container %}
-    <div class="row" style="padding-top: 80px;">
-        <div class="col-md-8 text-center mx-auto">
-            <h1 class="text-header">Our Short Link</h1>
+    <div class="container">
+        <div class="row" style="padding-top: 80px;">
+            <div class="col-md-8 text-center mx-auto">
+                <h1 class="text-header">Our Short Link</h1>
+            </div>
+        </div>
+        <div class="row" style="padding-bottom: 100px">
+            <div class="col-md-8 mx-auto text-center" id="pagination-link">
+                <table class="table table-striped table-bordered my-2">
+                    <thead>
+                    <tr class="text-center">
+                        <th scope="col">Standard Link</th>
+                        <th scope="col">Count of use</th>
+                        <th scope="col"> Edit </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for link in links %}
+                    <tr class="text-center">
+                        <td>
+                            {% if link.short_link %}
+                                <a href="">{{ link.short_link }}</a>
+                            {% else %}
+                                <a href="">{{ link.designed_link }}</a>
+                            {% endif %}
+                        </td>
+                        <td>{{link.count_use}}</td>
+                        <td><a href="{% url 'shortener:update' pk=link.id %}" class="btn btn-outline-primary" role="button">Edit Link</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            {% include 'shortener/pagination.html' %}
+            </div>
         </div>
     </div>
-    <div class="row" style="padding-bottom: 100px">
-        <div class="col-md-8 mx-auto text-center" id="pagination-link">
-            <table class="table table-striped table-bordered my-2">
-                <thead>
-                <tr class="text-center">
-                    <th scope="col">Standard Link</th>
-                    <th scope="col">Count of use</th>
-                    <th scope="col"> Edit </th>
-                </tr>
-                </thead>
-                <tbody>
-                {% for link in links %}
-                <tr class="text-center">
-                    <td>
-                        {% if link.short_link %}
-                            <a href="">{{ link.short_link }}</a>
-                        {% else %}
-                            <a href="">{{ link.designed_link }}</a>
-                        {% endif %}
-                    </td>
-                    <td>{{link.count_use}}</td>
-                    <td><a href="{% url 'shortener:update' pk=link.id %}" class="btn btn-outline-primary" role="button">Edit Link</a></td>
-                </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        {% include 'shortener/pagination.html' %}
-        </div>
-    </div>
 
-{% endblock %}
-
-{% block content_without_container2 %}
     <div class="row" style="padding-bottom: 250px">
         <div class="col-md-12" style="background-color: #0b1736; padding-bottom: 20px; padding-top: 20px">
             <div class="container">
@@ -107,5 +101,5 @@
             </div>
         </div>
     </div>
-{% endblock %}
 
+{% endblock %}

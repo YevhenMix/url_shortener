@@ -19,6 +19,18 @@ function ajaxPagination() {
     })
 }
 
+function CopyClipboard() {
+  /* Get the text field */
+  var copyText = document.getElementById("myInput");
+  console.log(copyText)
+
+  /* Select the text field */
+  copyText.select();
+
+  /* Copy the text inside the text field */
+  document.execCommand("copy");
+}
+
 $(document).ready(function(){
     $("#button-addon2").click(function(){
         var serializedData = $("#shortLinkForm").serialize();
@@ -41,7 +53,7 @@ $(document).ready(function(){
             data: serializedData,
             type: 'post',
             success: function(response) {
-                $("#shortForm").html('<div class="row g-2"><div class="col-md-8"><input class="form-control form-control-lg" type="text" value="' + response.short_link + '" aria-label=".form-control-lg example" readonly></div><div class="col-md"><button type="button" class="btn btn-primary btn-lg mx-4" id="button-replace" style="width: 100%">Copied</button></div></div>')
+                $("#shortForm").html('<div class="row g-2"><div class="col-md-8"><input class="form-control form-control-lg" type="text" value="' + response.short_link + '" aria-label=".form-control-lg example" readonly></div><div class="col-md"><button type="button" onclick="CopyClipboard()" class="btn btn-primary btn-lg mx-4" id="myInput" style="width: 100%">Copied</button></div></div>')
             }
         })
         console.log('Done')

@@ -41,7 +41,7 @@
         </nav>
     </div>
 
-        {% if messages %}
+    {% if messages %}
         <div class="container my-2">
             <div class="row">
                 <div class="col-md-4 mx-auto">
@@ -63,28 +63,19 @@
                 </div>
             </div>
         </div>
-        {% endif %}
+    {% endif %}
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="{% static 'shortener/js/test_ajax.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{% static 'shortener/js/test_ajax.js' %}"></script>
 
+
+    {% block content %} {% endblock %}
+
+    <footer class="footer fixed-bottom mt-auto py-4 bg-light">
         <div class="container">
-            {% block content %} {% endblock %}
+            <span class="text-muted">Some data for container</span>
         </div>
-
-        {% block content_without_container %} {% endblock %}
-
-        <div class="container">
-            {% block content_with_container %} {% endblock %}
-        </div>
-
-        {% block content_without_container2 %} {% endblock %}
-
-        <footer class="footer fixed-bottom mt-auto py-4 bg-light">
-            <div class="container">
-                <span class="text-muted">Some data for container</span>
-            </div>
-        </footer>
+    </footer>
     </body>
 </html>
